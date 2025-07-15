@@ -1,14 +1,64 @@
-# deps
+# Dependencies
 node_modules/
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+bun.lockb
 
-# local env
+# Build output
+dist/
+build/
+out/
+
+# Environment files
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
 *.local
 
-# aider
-.aider*
+# IDE & Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
 
-# eslint cache
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Cache directories
+.cache/
 .eslintcache
+.parcel-cache
+.nyc_output/
+.coverage/
+coverage/
 
-# build output
-dist/
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+
+# Temporary files
+tmp/
+temp/
+
+# Tool-specific
+.aider*
