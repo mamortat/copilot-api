@@ -8,6 +8,7 @@ import { getGitHubUser } from "~/services/github/get-user"
 import { pollAccessToken } from "~/services/github/poll-access-token"
 
 import { HTTPError } from "./error"
+import { getErrorMessage } from "./response-parser"
 import { state } from "./state"
 
 const readGithubToken = () => fs.readFile(PATHS.GITHUB_TOKEN_PATH, "utf8")
@@ -80,7 +81,8 @@ export async function setupGitHubToken(
     await logUser()
   } catch (error) {
     if (error instanceof HTTPError) {
-      consola.error("Failed to get GitHub token:", await error.response.json())
+      const errorMessage = await getErrorMessage(error.response.clone())
+      consola.error("Failed to get GitHub token:", errorMessage)
       throw error
     }
 

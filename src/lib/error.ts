@@ -3,6 +3,8 @@ import type { ContentfulStatusCode } from "hono/utils/http-status"
 
 import consola from "consola"
 
+import { getErrorMessage } from "./response-parser"
+
 export class HTTPError extends Error {
   response: Response
 
@@ -16,12 +18,12 @@ export async function forwardError(c: Context, error: unknown) {
   consola.error("Error occurred:", error)
 
   if (error instanceof HTTPError) {
-    consola.error("HTTP error:", await error.response.json())
-    const errorText = await error.response.text()
+    const errorMessage = await getErrorMessage(error.response.clone())
+    consola.error("HTTP error:", errorMessage)
     return c.json(
       {
         error: {
-          message: errorText,
+          message: errorMessage,
           type: "error",
         },
       },

@@ -3,6 +3,7 @@ import { events } from "fetch-event-stream"
 
 import { copilotHeaders, copilotBaseUrl } from "~/lib/api-config"
 import { HTTPError } from "~/lib/error"
+import { safeParseJSON } from "~/lib/response-parser"
 import { state } from "~/lib/state"
 
 export const createChatCompletions = async (
@@ -31,7 +32,7 @@ export const createChatCompletions = async (
     return events(response)
   }
 
-  return (await response.json()) as ChatCompletionResponse
+  return await safeParseJSON<ChatCompletionResponse>(response)
 }
 
 // Streaming types
